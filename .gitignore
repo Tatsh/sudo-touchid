@@ -30,3 +30,9 @@ __pycache__/
 .Trashes/
 ehthumbs.db
 Thumbs.db
+
+/build/
+/sudo.xcodeproj/project.xcworkspace/xcshareddata/
+/sudo.xcodeproj/project.xcworkspace/xcuserdata/
+/sudo.xcodeproj/xcshareddata/
+/sudo.xcodeproj/xcuserdata/

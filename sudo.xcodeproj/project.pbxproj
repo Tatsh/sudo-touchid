@@ -176,6 +176,7 @@
 		1C84C6720F40C96D00E9FD67 /* libdl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdl.dylib; path = usr/lib/libdl.dylib; sourceTree = SDKROOT; };
 		1CE32B8D0F422FD100C2C6A0 /* sudo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudo; path = pam.d/sudo; sourceTree = "<group>"; };
 		1CE32B900F42300100C2C6A0 /* sudo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = sudo.plist; sourceTree = "<group>"; };
+		2641B303222601F90070B8F4 /* libutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libutil.h; path = sudo/include/libutil.h; sourceTree = SOURCE_ROOT; };
 		FE1D68FF1CC06B1A00EBFCDF /* gc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gc.c; sourceTree = "<group>"; };
 		FE8019341C69C8A7006A214E /* sudo_lecture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudo_lecture; path = files/sudo_lecture; sourceTree = "<group>"; };
 		FE8019351C69C8A7006A214E /* sudoers */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoers; path = files/sudoers; sourceTree = "<group>"; };
@@ -732,6 +733,7 @@
 			children = (
 				FE801ABB1C6AB1A5006A214E /* compat */,
 				FE801AC71C6AB1A5006A214E /* sudo_compat.h */,
+				2641B303222601F90070B8F4 /* libutil.h */,
 				FE801AC81C6AB1A5006A214E /* sudo_conf.h */,
 				FE801AC91C6AB1A5006A214E /* sudo_debug.h */,
 				FE801ACA1C6AB1A5006A214E /* sudo_dso.h */,
@@ -1472,25 +1474,30 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1010;
 				TargetAttributes = {
 					1C0BFECC0F42468C00798D84 = {
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801AFA1C6AB210006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D291C6AFB2E006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D331C6AFB8F006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D5A1C6AFE87006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1773,9 +1780,9 @@
 		1C0BFECD0F42468D00798D84 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Build All";
 				ZERO_LINK = NO;
 			};
@@ -1785,10 +1792,34 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPRESSION = "respect-asset-catalog";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = __APPLE_MEMBERSHIP__;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/sudo",
@@ -1796,14 +1827,13 @@
 					"$(SRCROOT)/sudo/plugins/sudoers",
 					"$(SRCROOT)/sudo/src",
 				);
-				INSTALL_GROUP = wheel;
-				INSTALL_OWNER = root;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_CFLAGS = (
 					"-DSUDOERS_UID=0",
 					"-DSUDOERS_GID=0",
 					"-DSUDOERS_MODE=0440",
 				);
-				SDKROOT = macosx.internal;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1813,6 +1843,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1832,7 +1863,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INSTALL_MODE_FLAG = 4511;
-				INSTALL_PATH = /usr/bin;
+				INSTALL_PATH = /opt/local/bin;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1844,6 +1875,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1863,8 +1895,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INSTALL_MODE_FLAG = 111;
-				INSTALL_PATH = /usr/sbin;
+				INSTALL_PATH = /opt/local/sbin;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1898,9 +1929,9 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				INSTALL_PATH = /opt/local/lib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Release;
@@ -1933,9 +1964,9 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				INSTALL_PATH = /opt/local/lib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Release;
