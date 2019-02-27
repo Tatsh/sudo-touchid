@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2641B3062226517D0070B8F4 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2641B3052226517D0070B8F4 /* LocalAuthentication.framework */; };
 		35461CEC2029F2CC0088CB9D /* bsm_audit.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801BD81C6AD2B9006A214E /* bsm_audit.c */; };
 		FE1D69001CC06B2F00EBFCDF /* gc.c in Sources */ = {isa = PBXBuildFile; fileRef = FE1D68FF1CC06B1A00EBFCDF /* gc.c */; };
 		FE801B8F1C6AB440006A214E /* conversation.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801AD31C6AB1A5006A214E /* conversation.c */; };
@@ -177,6 +178,7 @@
 		1CE32B8D0F422FD100C2C6A0 /* sudo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudo; path = pam.d/sudo; sourceTree = "<group>"; };
 		1CE32B900F42300100C2C6A0 /* sudo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = sudo.plist; sourceTree = "<group>"; };
 		2641B303222601F90070B8F4 /* libutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libutil.h; path = sudo/include/libutil.h; sourceTree = SOURCE_ROOT; };
+		2641B3052226517D0070B8F4 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		FE1D68FF1CC06B1A00EBFCDF /* gc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gc.c; sourceTree = "<group>"; };
 		FE8019341C69C8A7006A214E /* sudo_lecture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudo_lecture; path = files/sudo_lecture; sourceTree = "<group>"; };
 		FE8019351C69C8A7006A214E /* sudoers */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoers; path = files/sudoers; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2641B3062226517D0070B8F4 /* LocalAuthentication.framework in Frameworks */,
 				FE801D7E1C6AFFA0006A214E /* libsudoutil.a in Frameworks */,
 				FE801D4E1C6AFCFD006A214E /* libz.dylib in Frameworks */,
 				FE801D4A1C6AFCB3006A214E /* libparsesudoers.a in Frameworks */,
@@ -651,6 +654,7 @@
 				1C6E801E0F40DD5F0028C19F /* Libraries */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 				1CE32B8E0F422FD500C2C6A0 /* Other Installed Files */,
+				2641B3042226517C0070B8F4 /* Frameworks */,
 			);
 			name = sudo;
 			sourceTree = "<group>";
@@ -703,6 +707,14 @@
 				1CE32B8D0F422FD100C2C6A0 /* sudo */,
 			);
 			name = "Other Installed Files";
+			sourceTree = "<group>";
+		};
+		2641B3042226517C0070B8F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2641B3052226517D0070B8F4 /* LocalAuthentication.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FE80184A1C69B175006A214E /* Source */ = {
