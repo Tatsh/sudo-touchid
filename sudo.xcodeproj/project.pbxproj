@@ -1477,27 +1477,22 @@
 				LastUpgradeCheck = 1010;
 				TargetAttributes = {
 					1C0BFECC0F42468C00798D84 = {
-						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801AFA1C6AB210006A214E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D291C6AFB2E006A214E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D331C6AFB8F006A214E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D5A1C6AFE87006A214E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 				};
