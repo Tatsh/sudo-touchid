@@ -503,6 +503,9 @@
 /* Define to 1 if you use PAM authentication. */
 #define HAVE_PAM 1
 
+/* Define to use Touch ID. */
+#define HAVE_TOUCHID 1
+
 /* Define to 1 if you have the `pam_getenvlist' function. */
 #define HAVE_PAM_GETENVLIST 1
 
