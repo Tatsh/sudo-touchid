@@ -63,7 +63,7 @@
 		FE801D131C6AD36A006A214E /* sudoers.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801CBF1C6AD2B9006A214E /* sudoers.c */; };
 		FE801D151C6AD36A006A214E /* timestamp.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801CC91C6AD2B9006A214E /* timestamp.c */; };
 		FE801D191C6AD3FA006A214E /* pam.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801BCE1C6AD2B9006A214E /* pam.c */; };
-		FE801D1A1C6AD3FA006A214E /* sudo_auth.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801BD41C6AD2B9006A214E /* sudo_auth.c */; };
+		FE801D1A1C6AD3FA006A214E /* sudo_auth.m in Sources */ = {isa = PBXBuildFile; fileRef = FE801BD41C6AD2B9006A214E /* sudo_auth.m */; };
 		FE801D1B1C6AD420006A214E /* libpam.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C84C6700F40C96100E9FD67 /* libpam.dylib */; };
 		FE801D1C1C6AD426006A214E /* libbsm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6E800E0F40DCC20028C19F /* libbsm.dylib */; };
 		FE801D371C6AFC06006A214E /* alias.c in Sources */ = {isa = PBXBuildFile; fileRef = FE801BC41C6AD2B9006A214E /* alias.c */; };
@@ -351,7 +351,7 @@
 		FE801BD11C6AD2B9006A214E /* secureware.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = secureware.c; sourceTree = "<group>"; };
 		FE801BD21C6AD2B9006A214E /* securid5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = securid5.c; sourceTree = "<group>"; };
 		FE801BD31C6AD2B9006A214E /* sia.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sia.c; sourceTree = "<group>"; };
-		FE801BD41C6AD2B9006A214E /* sudo_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sudo_auth.c; sourceTree = "<group>"; };
+		FE801BD41C6AD2B9006A214E /* sudo_auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sudo_auth.m; sourceTree = "<group>"; };
 		FE801BD51C6AD2B9006A214E /* sudo_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sudo_auth.h; sourceTree = "<group>"; };
 		FE801BD61C6AD2B9006A214E /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		FE801BD71C6AD2B9006A214E /* boottime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = boottime.c; sourceTree = "<group>"; };
@@ -1127,7 +1127,7 @@
 				FE801BD11C6AD2B9006A214E /* secureware.c */,
 				FE801BD21C6AD2B9006A214E /* securid5.c */,
 				FE801BD31C6AD2B9006A214E /* sia.c */,
-				FE801BD41C6AD2B9006A214E /* sudo_auth.c */,
+				FE801BD41C6AD2B9006A214E /* sudo_auth.m */,
 				FE801BD51C6AD2B9006A214E /* sudo_auth.h */,
 			);
 			path = auth;
@@ -1477,22 +1477,27 @@
 				LastUpgradeCheck = 1010;
 				TargetAttributes = {
 					1C0BFECC0F42468C00798D84 = {
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801AFA1C6AB210006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D291C6AFB2E006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D331C6AFB8F006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 					FE801D5A1C6AFE87006A214E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EU5R2QY9HJ;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1634,7 +1639,7 @@
 				FE801B961C6AB440006A214E /* load_plugins.c in Sources */,
 				FE801D081C6AD36A006A214E /* logwrap.c in Sources */,
 				FE801D151C6AD36A006A214E /* timestamp.c in Sources */,
-				FE801D1A1C6AD3FA006A214E /* sudo_auth.c in Sources */,
+				FE801D1A1C6AD3FA006A214E /* sudo_auth.m in Sources */,
 				FE801D061C6AD36A006A214E /* locale.c in Sources */,
 				FE801CFA1C6AD36A006A214E /* check.c in Sources */,
 				FE801B901C6AB440006A214E /* env_hooks.c in Sources */,
