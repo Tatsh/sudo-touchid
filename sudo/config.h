@@ -559,6 +559,9 @@
 /* Define to 1 if you have the `pam_getenvlist' function. */
 #define HAVE_PAM_GETENVLIST 1
 
+/* Define to use Touch ID. */
+#define HAVE_TOUCHID 1
+
 /* Define to 1 if you use a specific PAM session for sudo -i. */
 /* #undef HAVE_PAM_LOGIN */
 

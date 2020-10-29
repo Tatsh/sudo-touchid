@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 1999-2005, 2008-2015 Todd C. Miller <Todd.Miller@courtesan.com>
+ * SPDX-License-Identifier: ISC
+ *
+ * Copyright (c) 1999-2005, 2008-2018 Todd C. Miller <Todd.Miller@sudo.ws>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,11 +20,21 @@
  * Materiel Command, USAF, under agreement number F39502-99-1-0512.
  */
 
+/*
+ * This is an open source non-commercial project. Dear PVS-Studio, please check it.
+ * PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+ */
+
 #include <config.h>
 
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
+#if defined(HAVE_STDINT_H)
+# include <stdint.h>
+#elif defined(HAVE_INTTYPES_H)
+# include <inttypes.h>
+#endif
 #ifdef HAVE_STRING_H
 # include <string.h>
 #endif /* HAVE_STRING_H */
@@ -36,7 +48,7 @@
 
 #ifdef HAVE_TOUCHID
 #include <crt_externs.h>
-#endif // __APPLE__
+#endif
 
 #include "sudoers.h"
 #include "sudo_auth.h"
@@ -54,52 +66,51 @@ int touchid_pam_end_session(struct passwd *pw, sudo_auth *auth);
 static sudo_auth auth_switch[] = {
 #ifdef HAVE_TOUCHID
     /* Touch ID, with fallback to PAM when over SSH */
-    AUTH_ENTRY("touchid", FLAG_STANDALONE, sudo_pam_init, touchid_setup, touchid_verify, sudo_pam_cleanup, touchid_pam_begin_session, touchid_pam_end_session)
+    AUTH_ENTRY("touchid", FLAG_STANDALONE, sudo_pam_init, touchid_setup, touchid_verify, NULL, sudo_pam_cleanup, touchid_pam_begin_session, touchid_pam_end_session)
 #endif
-    
 /* Standalone entries first */
 #ifdef HAVE_AIXAUTH
-    AUTH_ENTRY("aixauth", FLAG_STANDALONE, sudo_aix_init, NULL, sudo_aix_verify, sudo_aix_cleanup, NULL, NULL)
+    AUTH_ENTRY("aixauth", FLAG_STANDALONE, sudo_aix_init, NULL, sudo_aix_verify, NULL, sudo_aix_cleanup, NULL, NULL)
 #endif
 #ifdef HAVE_PAM
-    AUTH_ENTRY("pam", FLAG_STANDALONE, sudo_pam_init, NULL, sudo_pam_verify, sudo_pam_cleanup, sudo_pam_begin_session, sudo_pam_end_session)
+    AUTH_ENTRY("pam", FLAG_STANDALONE, sudo_pam_init, NULL, sudo_pam_verify, sudo_pam_approval, sudo_pam_cleanup, sudo_pam_begin_session, sudo_pam_end_session)
 #endif
 #ifdef HAVE_SECURID
-    AUTH_ENTRY("SecurId", FLAG_STANDALONE, sudo_securid_init, sudo_securid_setup, sudo_securid_verify, NULL, NULL, NULL)
+    AUTH_ENTRY("SecurId", FLAG_STANDALONE, sudo_securid_init, sudo_securid_setup, sudo_securid_verify, NULL, NULL, NULL, NULL)
 #endif
 #ifdef HAVE_SIA_SES_INIT
-    AUTH_ENTRY("sia", FLAG_STANDALONE, NULL, sudo_sia_setup, sudo_sia_verify, sudo_sia_cleanup, sudo_sia_begin_session, NULL)
+    AUTH_ENTRY("sia", FLAG_STANDALONE, NULL, sudo_sia_setup, sudo_sia_verify, NULL, sudo_sia_cleanup, sudo_sia_begin_session, NULL)
 #endif
 #ifdef HAVE_FWTK
-    AUTH_ENTRY("fwtk", FLAG_STANDALONE, sudo_fwtk_init, NULL, sudo_fwtk_verify, sudo_fwtk_cleanup, NULL, NULL)
+    AUTH_ENTRY("fwtk", FLAG_STANDALONE, sudo_fwtk_init, NULL, sudo_fwtk_verify, NULL, sudo_fwtk_cleanup, NULL, NULL)
 #endif
 #ifdef HAVE_BSD_AUTH_H
-    AUTH_ENTRY("bsdauth", FLAG_STANDALONE, bsdauth_init, NULL, bsdauth_verify, bsdauth_cleanup, NULL, NULL)
+    AUTH_ENTRY("bsdauth", FLAG_STANDALONE, bsdauth_init, NULL, bsdauth_verify, bsdauth_approval, bsdauth_cleanup, NULL, NULL)
 #endif
 
 /* Non-standalone entries */
 #ifndef WITHOUT_PASSWD
-    AUTH_ENTRY("passwd", 0, sudo_passwd_init, NULL, sudo_passwd_verify, sudo_passwd_cleanup, NULL, NULL)
+    AUTH_ENTRY("passwd", 0, sudo_passwd_init, NULL, sudo_passwd_verify, NULL, sudo_passwd_cleanup, NULL, NULL)
 #endif
 #if defined(HAVE_GETPRPWNAM) && !defined(WITHOUT_PASSWD)
-    AUTH_ENTRY("secureware", 0, sudo_secureware_init, NULL, sudo_secureware_verify, sudo_secureware_cleanup, NULL, NULL)
+    AUTH_ENTRY("secureware", 0, sudo_secureware_init, NULL, sudo_secureware_verify, NULL, sudo_secureware_cleanup, NULL, NULL)
 #endif
 #ifdef HAVE_AFS
-    AUTH_ENTRY("afs", 0, NULL, NULL, sudo_afs_verify, NULL, NULL, NULL)
+    AUTH_ENTRY("afs", 0, NULL, NULL, sudo_afs_verify, NULL, NULL, NULL, NULL)
 #endif
 #ifdef HAVE_DCE
-    AUTH_ENTRY("dce", 0, NULL, NULL, sudo_dce_verify, NULL, NULL, NULL)
+    AUTH_ENTRY("dce", 0, NULL, NULL, sudo_dce_verify, NULL, NULL, NULL, NULL)
 #endif
 #ifdef HAVE_KERB5
-    AUTH_ENTRY("kerb5", 0, sudo_krb5_init, sudo_krb5_setup, sudo_krb5_verify, sudo_krb5_cleanup, NULL, NULL)
+    AUTH_ENTRY("kerb5", 0, sudo_krb5_init, sudo_krb5_setup, sudo_krb5_verify, NULL, sudo_krb5_cleanup, NULL, NULL)
 #endif
 #ifdef HAVE_SKEY
-    AUTH_ENTRY("S/Key", 0, NULL, sudo_rfc1938_setup, sudo_rfc1938_verify, NULL, NULL, NULL)
+    AUTH_ENTRY("S/Key", 0, NULL, sudo_rfc1938_setup, sudo_rfc1938_verify, NULL, NULL, NULL, NULL)
 #endif
 #ifdef HAVE_OPIE
-    AUTH_ENTRY("OPIE", 0, NULL, sudo_rfc1938_setup, sudo_rfc1938_verify, NULL, NULL, NULL)
+    AUTH_ENTRY("OPIE", 0, NULL, sudo_rfc1938_setup, sudo_rfc1938_verify, NULL, NULL, NULL, NULL)
 #endif
-    AUTH_ENTRY(NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL)
+    AUTH_ENTRY(NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
 };
 
 static bool standalone;
@@ -134,7 +145,6 @@ sudo_auth_init(struct passwd *pw)
      * Make sure we haven't mixed standalone and shared auth methods.
      * If there are multiple standalone methods, only use the first one.
      */
-    
     if ((standalone = IS_STANDALONE(&auth_switch[0]))) {
 	bool found = false;
 	for (auth = auth_switch; auth->name; auth++) {
@@ -178,6 +188,30 @@ sudo_auth_init(struct passwd *pw)
 }
 
 /*
+ * Cleanup all authentication approval methods.
+ * Returns true on success, false on failure and -1 on error.
+ */
+int
+sudo_auth_approval(struct passwd *pw, int validated, bool exempt)
+{
+    sudo_auth *auth;
+    debug_decl(sudo_auth_approval, SUDOERS_DEBUG_AUTH)
+
+    /* Call approval routines. */
+    for (auth = auth_switch; auth->name; auth++) {
+	if (auth->approval && !IS_DISABLED(auth)) {
+	    int status = (auth->approval)(pw, auth, exempt);
+	    if (status != AUTH_SUCCESS) {
+		/* Assume error msg already printed. */
+		log_auth_failure(validated, 0);
+		debug_return_int(status == AUTH_FAILURE ? false : -1);
+	    }
+	}
+    }
+    debug_return_int(true);
+}
+
+/*
  * Cleanup all authentication methods.
  * Returns 0 on success and -1 on error.
  */
@@ -185,18 +219,19 @@ int
 sudo_auth_cleanup(struct passwd *pw)
 {
     sudo_auth *auth;
-    int status = AUTH_SUCCESS;
     debug_decl(sudo_auth_cleanup, SUDOERS_DEBUG_AUTH)
 
     /* Call cleanup routines. */
     for (auth = auth_switch; auth->name; auth++) {
 	if (auth->cleanup && !IS_DISABLED(auth)) {
-	    status = (auth->cleanup)(pw, auth);
-	    if (status == AUTH_FATAL)
-		break;		/* assume error msg already printed */
+	    int status = (auth->cleanup)(pw, auth);
+	    if (status == AUTH_FATAL) {
+		/* Assume error msg already printed. */
+		debug_return_int(-1);
+	    }
 	}
     }
-    debug_return_int(status == AUTH_FATAL ? -1 : 0);
+    debug_return_int(0);
 }
 
 static void
@@ -209,7 +244,7 @@ pass_warn(void)
     if (def_insults)
 	warning = INSULT;
 #endif
-    sudo_printf(SUDO_CONV_ERROR_MSG, "%s\n", warning);
+    sudo_printf(SUDO_CONV_ERROR_MSG|SUDO_CONV_PREFER_TTY, "%s\n", warning);
 
     debug_return;
 }
@@ -232,10 +267,10 @@ verify_user(struct passwd *pw, char *prompt, int validated,
     struct sudo_conv_callback *callback)
 {
     unsigned int ntries;
-    int rval, status, success = AUTH_FAILURE;
+    int ret, status, success = AUTH_FAILURE;
     sudo_auth *auth;
     sigset_t mask, omask;
-    sigaction_t sa, saved_sigtstp;
+    struct sigaction sa, saved_sigtstp;
     debug_decl(verify_user, SUDOERS_DEBUG_AUTH)
 
     /* Make sure we have at least one auth method. */
@@ -298,8 +333,7 @@ verify_user(struct passwd *pw, char *prompt, int validated,
 
 	/* Get the password unless the auth function will do it for us */
 	if (!standalone) {
-	    pass = auth_getpass(prompt, def_passwd_timeout * 60,
-		SUDO_CONV_PROMPT_ECHO_OFF, callback);
+	    pass = auth_getpass(prompt, SUDO_CONV_PROMPT_ECHO_OFF, callback);
 	    if (pass == NULL)
 		break;
 	}
@@ -314,7 +348,7 @@ verify_user(struct passwd *pw, char *prompt, int validated,
 	    if (success != AUTH_FAILURE)
 		break;
 	}
-	if (!standalone) {
+	if (pass != NULL) {
 	    memset_s(pass, SUDO_CONV_REPL_MAX, 0, strlen(pass));
 	    free(pass);
 	}
@@ -330,23 +364,23 @@ done:
 
     switch (success) {
 	case AUTH_SUCCESS:
-	    rval = true;
+	    ret = true;
 	    break;
 	case AUTH_INTR:
 	case AUTH_FAILURE:
 	    if (ntries != 0)
 		validated |= FLAG_BAD_PASSWORD;
 	    log_auth_failure(validated, ntries);
-	    rval = false;
+	    ret = false;
 	    break;
 	case AUTH_FATAL:
 	default:
-	    log_auth_failure(validated | FLAG_AUTH_ERROR, 0);
-	    rval = -1;
+	    log_auth_failure(validated, 0);
+	    ret = -1;
 	    break;
     }
 
-    debug_return_int(rval);
+    debug_return_int(ret);
 }
 
 /*
@@ -357,17 +391,18 @@ int
 sudo_auth_begin_session(struct passwd *pw, char **user_env[])
 {
     sudo_auth *auth;
-    int status = AUTH_SUCCESS;
     debug_decl(sudo_auth_begin_session, SUDOERS_DEBUG_AUTH)
 
     for (auth = auth_switch; auth->name; auth++) {
 	if (auth->begin_session && !IS_DISABLED(auth)) {
-	    status = (auth->begin_session)(pw, user_env, auth);
-	    if (status != AUTH_SUCCESS)
-		break;		/* assume error msg already printed */
+	    int status = (auth->begin_session)(pw, user_env, auth);
+	    if (status != AUTH_SUCCESS) {
+		/* Assume error msg already printed. */
+		debug_return_int(-1);
+	    }
 	}
     }
-    debug_return_int(status == AUTH_SUCCESS ? 1 : -1);
+    debug_return_int(1);
 }
 
 bool
@@ -394,17 +429,19 @@ int
 sudo_auth_end_session(struct passwd *pw)
 {
     sudo_auth *auth;
-    int status = AUTH_SUCCESS;
+    int status;
     debug_decl(sudo_auth_end_session, SUDOERS_DEBUG_AUTH)
 
     for (auth = auth_switch; auth->name; auth++) {
 	if (auth->end_session && !IS_DISABLED(auth)) {
 	    status = (auth->end_session)(pw, auth);
-	    if (status == AUTH_FATAL)
-		break;			/* assume error msg already printed */
+	    if (status == AUTH_FATAL) {
+		/* Assume error msg already printed. */
+		debug_return_int(-1);
+	    }
 	}
     }
-    debug_return_int(status == AUTH_FATAL ? -1 : 1);
+    debug_return_int(1);
 }
 
 /*
@@ -413,8 +450,7 @@ sudo_auth_end_session(struct passwd *pw)
  * The user is responsible for freeing the returned value.
  */
 char *
-auth_getpass(const char *prompt, int timeout, int type,
-    struct sudo_conv_callback *callback)
+auth_getpass(const char *prompt, int type, struct sudo_conv_callback *callback)
 {
     struct sudo_conv_message msg;
     struct sudo_conv_reply repl;
@@ -439,7 +475,7 @@ auth_getpass(const char *prompt, int timeout, int type,
     /* Call conversation function. */
     memset(&msg, 0, sizeof(msg));
     msg.msg_type = type;
-    msg.timeout = def_passwd_timeout * 60;
+    msg.timeout = def_passwd_timeout.tv_sec;
     msg.msg = prompt;
     memset(&repl, 0, sizeof(repl));
     sudo_conv(1, &msg, &repl, callback);
@@ -467,81 +503,82 @@ dump_auth_methods(void)
 
 #ifdef HAVE_TOUCHID
 typedef enum {
-    kTouchIDResultNone,
-    kTouchIDResultAllowed,
-    kTouchIDResultFailed
+	kTouchIDResultNone,
+	kTouchIDResultAllowed,
+	kTouchIDResultFailed
 } TouchIDResult;
 
 static const LAPolicy kAuthPolicy = 0x3f0;
 
 int
 touchid_setup(struct passwd *pw, char **prompt, sudo_auth *auth) {
-    // If over SSH, indicated by non-empty environment variable SSH_CONNECTION,
-    // fallback to PAM by exiting early as possible here
-    // Still has to be AUTH_SUCCESS but is_over_ssh is set to non-zero
-    char **ep, **envp = *_NSGetEnviron();
-    const char *name = "SSH_CONNECTION";
-    size_t namelen = 0;
-    while (name[namelen] != '\0') {
-        namelen++;
-    }
-    for (ep = envp; *ep != NULL; ep++) {
-        if (strncmp(*ep, name, namelen) == 0 && (*ep)[namelen] == '=') {
-            log_warningx(SLOG_SEND_MAIL, N_("No Touch ID over SSH."));
-            is_over_ssh = 1;
-            return AUTH_SUCCESS;
-        }
-    }
+	// If over SSH, indicated by non-empty environment variable SSH_CONNECTION,
+	// fallback to PAM by exiting early as possible here
+	// Still has to be AUTH_SUCCESS but is_over_ssh is set to non-zero
+	char **ep, **envp = *_NSGetEnviron();
+	const char *name = "SSH_CONNECTION";
+	size_t namelen = 0;
+	while (name[namelen] != '\0') {
+		namelen++;
+	}
+	for (ep = envp; *ep != NULL; ep++) {
+		if (strncmp(*ep, name, namelen) == 0 && (*ep)[namelen] == '=') {
+			log_warningx(SLOG_SEND_MAIL, N_("No Touch ID over SSH."));
+			is_over_ssh = 1;
+			return AUTH_SUCCESS;
+		}
+	}
 
-    @try {
-        LAContext *context = [[LAContext alloc] init];
-        BOOL canAuthenticate = [context canEvaluatePolicy:kAuthPolicy error:nil];
-        [context release];
-        if (canAuthenticate) {
-            return AUTH_SUCCESS;
-        }
-    }
-    @catch(NSException *) {
-        // LAPolicyDeviceOwnerAuthenticationWithBiometrics may not be available on builds older than 10.12.1!
-        sudo_printf(SUDO_CONV_INFO_MSG, _("2"));
-    }
-    audit_failure(NewArgc, NewArgv, "%s", N_("Touch ID setup failed."));
+	@try {
+		LAContext *context = [[LAContext alloc] init];
+		BOOL canAuthenticate = [context canEvaluatePolicy:kAuthPolicy error:nil];
+		[context release];
+		if (canAuthenticate) {
+			return AUTH_SUCCESS;
+		}
+	}
+	@catch(NSException *) {
+		// LAPolicyDeviceOwnerAuthenticationWithBiometrics may not be available on builds older than 10.12.1!
+		sudo_printf(SUDO_CONV_INFO_MSG, _("2"));
+	}
+	audit_failure(NewArgc, NewArgv, "%s", N_("Touch ID setup failed."));
 
-    return AUTH_FAILURE;
+	return AUTH_FAILURE;
 }
 
 int
 touchid_verify(struct passwd *pw, char *pass, sudo_auth *auth, struct sudo_conv_callback *callback) {
-    if (is_over_ssh) {
-        return sudo_pam_verify(pw, pass, auth, callback);
-    }
+	if (is_over_ssh) {
+		return sudo_pam_verify(pw, pass, auth, callback);
+	}
 
-    LAContext *context = [[LAContext alloc] init];
-    __block TouchIDResult result = kTouchIDResultNone;
-    [context evaluatePolicy:kAuthPolicy localizedReason:@"authenticate a privileged operation" reply:^(BOOL success, NSError *error) {
-        result = success ? kTouchIDResultAllowed : kTouchIDResultFailed;
-        CFRunLoopWakeUp(CFRunLoopGetCurrent());
-    }];
-    
-    while (result == kTouchIDResultNone)
-        CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
-    
-    [context release];
-    return result == kTouchIDResultAllowed ? AUTH_SUCCESS : AUTH_FAILURE;
+	LAContext *context = [[LAContext alloc] init];
+	__block TouchIDResult result = kTouchIDResultNone;
+	[context evaluatePolicy:kAuthPolicy localizedReason:@"authenticate a privileged operation" reply:^(BOOL success, NSError *error) {
+		result = success ? kTouchIDResultAllowed : kTouchIDResultFailed;
+		CFRunLoopWakeUp(CFRunLoopGetCurrent());
+	}];
+
+	while (result == kTouchIDResultNone)
+		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
+
+	[context release];
+	return result == kTouchIDResultAllowed ? AUTH_SUCCESS : AUTH_FAILURE;
 }
 
-int touchid_pam_begin_session(struct passwd *pw, char **user_envp[], sudo_auth *auth) {
-    if (is_over_ssh) {
-        return sudo_pam_begin_session(pw, user_envp, auth);
-    }
-    return AUTH_SUCCESS;
+int
+touchid_pam_begin_session(struct passwd *pw, char **user_envp[], sudo_auth *auth) {
+	if (is_over_ssh) {
+		return sudo_pam_begin_session(pw, user_envp, auth);
+	}
+	return AUTH_SUCCESS;
 }
 
-int touchid_pam_end_session(struct passwd *pw, sudo_auth *auth) {
-    if (is_over_ssh) {
-        return sudo_pam_end_session(pw, auth);
-    }
-    return AUTH_SUCCESS;
+int
+touchid_pam_end_session(struct passwd *pw, sudo_auth *auth) {
+	if (is_over_ssh) {
+		return sudo_pam_end_session(pw, auth);
+	}
+	return AUTH_SUCCESS;
 }
 #endif // HAVE_TOUCHID
-
