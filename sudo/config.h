@@ -470,7 +470,7 @@
 /* #undef HAVE_LIBINTL_H */
 
 /* Define to 1 if you have the <libutil.h> header file. */
-#define HAVE_LIBUTIL_H 1
+/* #undef HAVE_LIBUTIL_H */
 
 /* Define to 1 to enable Linux audit support. */
 /* #undef HAVE_LINUX_AUDIT */
@@ -875,7 +875,7 @@
 #define HAVE_UNSIGNED_LONG_LONG_INT 1
 
 /* Define to 1 if you have the <util.h> header file. */
-/* #undef HAVE_UTIL_H */
+#define HAVE_UTIL_H 1
 
 /* Define to 1 if you have the `utimensat' function. */
 #define HAVE_UTIMENSAT 1
