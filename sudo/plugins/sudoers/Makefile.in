@@ -2282,6 +2282,12 @@ sia.i: $(authdir)/sia.c $(authdir)/sudo_auth.h $(devdir)/def_data.h \
 	$(CC) -E -o $@ $(CPPFLAGS) $<
 sia.plog: sia.i
 	rm -f $@; pvs-studio --cfg $(PVS_CFG) --sourcetree-root $(top_srcdir) --skip-cl-exe yes --source-file $(authdir)/sia.c --i-file $< --output-file $@
+touch_id.lo: $(authdir)/touch_id.m $(authdir)/sudo_auth.h $(srcdir)/sudoers.h
+	$(LIBTOOL) $(LTFLAGS) --mode=compile $(CC) -c $(CPPFLAGS) $(CFLAGS) -x objective-c $(ASAN_CFLAGS) $(PIE_CFLAGS) $(SSP_CFLAGS) $(authdir)/touch_id.m
+touch_id.i: $(authdir)/touch_id.m $(authdir)/sudo_auth.h $(srcdir)/sudoers.h
+	$(CC) -E -o $@ $(CPPFLAGS) $<
+touch_id.plog: touch_id.i
+	rm -f $@; pvs-studio --cfg $(PVS_CFG) --sourcetree-root $(top_srcdir) --skip-cl-exe yes --source-file $(authdir)/touch_id.m --i-file $< --output-file $@
 solaris_audit.lo: $(srcdir)/solaris_audit.c $(devdir)/def_data.h \
                   $(incdir)/compat/stdbool.h $(incdir)/sudo_compat.h \
                   $(incdir)/sudo_conf.h $(incdir)/sudo_debug.h \

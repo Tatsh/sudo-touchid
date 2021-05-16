@@ -47,6 +47,10 @@
 
 static sudo_auth auth_switch[] = {
 /* Standalone entries first */
+#ifdef HAVE_TOUCH_ID
+    /* Touch ID, with fallback to PAM when over SSH */
+    AUTH_ENTRY("touchid", FLAG_STANDALONE, sudo_pam_init, touchid_setup, touchid_verify, NULL, sudo_pam_cleanup, touchid_pam_begin_session, touchid_pam_end_session)
+#endif
 #ifdef HAVE_AIXAUTH
     AUTH_ENTRY("aixauth", FLAG_STANDALONE, sudo_aix_init, NULL, sudo_aix_verify, NULL, sudo_aix_cleanup, NULL, NULL)
 #endif

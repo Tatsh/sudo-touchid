@@ -1,0 +1,17 @@
+*.la
+*.lo
+*~
+.libs/
+/autom4te.cache/
+/config.log
+/config.status
+/doc/**/*.mdoc
+/logsrvd/sudo_logsrvd
+/logsrvd/sudo_sendlog
+/plugins/sudoers/cvtsudoers
+/plugins/sudoers/prologue
+/plugins/sudoers/sudoreplay
+/plugins/sudoers/testsudoers
+/plugins/sudoers/visudo
+/src/sudo
+Makefile

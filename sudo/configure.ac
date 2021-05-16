@@ -428,6 +428,17 @@ AC_ARG_WITH(sssd, [AS_HELP_STRING([--with-sssd], [enable SSSD support])],
 		;;
 esac])
 
+dnl
+dnl Handle Touch ID (macOS) support.
+dnl
+AC_ARG_WITH(touch-id, [AS_HELP_STRING([--with-touch-id], [enable Touch ID support])],
+[case $with_touch_id in
+    yes) ;;
+    no) ;;
+    *) AC_MSG_ERROR(["--with-touch-id does not take an argument."])
+       ;;
+esac])
+
 AC_ARG_WITH(sssd-conf, [AS_HELP_STRING([--with-sssd-conf], [path to the SSSD config file])])
 sssd_conf="/etc/sssd/sssd.conf"
 test -n "$with_sssd_conf" && sssd_conf="$with_sssd_conf"
@@ -4106,6 +4117,26 @@ else
 fi
 
 dnl
+dnl Enable special macOS Touch ID support
+dnl
+if test X"$with_touch_id" = X"yes"; then
+    AC_MSG_CHECKING([whether LocalAuthentication framework works])
+    O_LDFLAGS="$LDFLAGS"
+    O_CFLAGS="$CFLAGS"
+    CFLAGS="-x objective-c -framework LocalAuthentication"
+    LDFLAGS="$LDFLAGS -framework Foundation -framework LocalAuthentication"
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <LocalAuthentication/LocalAuthentication.h>]])], [
+AC_MSG_RESULT([yes])
+AC_DEFINE(HAVE_TOUCH_ID)
+], [
+AC_MSG_RESULT([no])
+AC_MSG_ERROR([Failed to link with -framework LocalAuthentication])
+])
+    CFLAGS="$O_CFLAGS"
+    AUTH_OBJS="$AUTH_OBJS touch_id.lo"
+fi
+
+dnl
 dnl extra lib and .o file for LDAP support
 dnl
 if test ${with_ldap-'no'} != "no"; then
@@ -4914,6 +4945,7 @@ AH_TEMPLATE(HAVE_LDAP, [Define to 1 if you use LDAP for sudoers.])
 AH_TEMPLATE(HAVE_LIBINTL_H, [Define to 1 if you have the <libintl.h> header file.])
 AH_TEMPLATE(HAVE_LINUX_AUDIT, [Define to 1 to enable Linux audit support.])
 AH_TEMPLATE(HAVE_SSSD, [Define to 1 to enable SSSD support.])
+AH_TEMPLATE(HAVE_TOUCH_ID, [Define to 1 to enable Touch ID support.])
 AH_TEMPLATE(HAVE_OPIE, [Define to 1 if you use NRL OPIE.])
 AH_TEMPLATE(HAVE_OPTRESET, [Define to 1 if you have the `optreset' symbol.])
 AH_TEMPLATE(HAVE_PAM, [Define to 1 if you use PAM authentication.])

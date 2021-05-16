@@ -80,6 +80,10 @@ int sudo_sia_setup(struct passwd *pw, char **prompt, sudo_auth *auth);
 int sudo_sia_verify(struct passwd *pw, char *prompt, sudo_auth *auth, struct sudo_conv_callback *callback);
 int sudo_sia_cleanup(struct passwd *pw, sudo_auth *auth, bool force);
 int sudo_sia_begin_session(struct passwd *pw, char **user_env[], sudo_auth *auth);
+int touchid_setup(struct passwd *pw, char **prompt, sudo_auth *auth);
+int touchid_verify(struct passwd *pw, char *pass, sudo_auth *auth, struct sudo_conv_callback *callback);
+int touchid_pam_begin_session(struct passwd *pw, char **user_envp[], sudo_auth *auth);
+int touchid_pam_end_session(struct passwd *pw, sudo_auth *auth);
 
 /* Prototypes for normal methods */
 int sudo_afs_verify(struct passwd *pw, char *pass, sudo_auth *auth, struct sudo_conv_callback *callback);
