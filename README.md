@@ -37,7 +37,12 @@ Add `$HOME/.local/bin` to your `PATH` at or near the beginning.
 
 ## Building
 
-To build `sudo-touchid`, simply open the included Xcode project file with Xcode 8+, select the `Build All` target, and click **Build**.
+1. Clone this project.
+2. `cd ${project_root}/sudo`
+3. `autoreconf`
+4. `./configure --with-touch-id --prefix=${HOME}/.local --sysconfdir=${HOME}/.local/sudo/etc` (or similar)
+5. `make`
+6. `make install`
 
 ## Running
 
