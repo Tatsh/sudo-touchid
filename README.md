@@ -1,3 +1,10 @@
+# Do not use!
+
+This version of sudo is significantly outdated and this project is no longer supported.
+
+You can use the official way to enable Touch ID with `sudo` shown below, but it may break using
+`sudo` over SSH.
+
 # Do I need this?
 
 If you SSH into your Mac very often you might be interested in this. There is somewhat of an official way to enable Touch ID with `sudo` by modifying `/etc/pam.d/sudo`. Just add:
